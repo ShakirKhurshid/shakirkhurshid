@@ -33,7 +33,7 @@
     <circle class="icon" cx="13" cy="12" r="6"/>
     <line class="icon" x1="19" y1="12" x2="26" y2="12"/>
   </g>
-  <text x="80" y="310" class="mono stat">12 commits in last year</text>
+  <text x="80" y="310" class="mono stat">13 commits in last year</text>
 
   <g transform="translate(40,328)">
     <circle class="icon" cx="9" cy="7" r="4"/>
