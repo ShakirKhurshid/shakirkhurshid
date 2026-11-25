@@ -17,7 +17,14 @@ query($login: String!) {
     followers { totalCount }
     contributionsCollection { totalCommitContributions restrictedContributionsCount }
     repositories(first: 100, ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC) {
-      nodes { stargazerCount }
+      nodes { nameWithOwner stargazerCount }
+    }
+    repositoriesContributedTo(first: 100, privacy: PUBLIC, includeUserRepositories: true,
+        contributionTypes: [COMMIT, PULL_REQUEST, REPOSITORY]) {
+      nodes { nameWithOwner stargazerCount }
+    }
+    pullRequests(first: 100, states: MERGED, orderBy: {field: CREATED_AT, direction: DESC}) {
+      nodes { repository { nameWithOwner stargazerCount isPrivate } }
     }
   }
 }
@@ -37,8 +44,19 @@ def fetch_stats():
         raise SystemExit(f"GitHub API error: {data['errors']}")
     user = data["data"]["user"]
     contrib = user["contributionsCollection"]
+
+    # Every public repo you own, recently contributed to, or got a PR merged into.
+    # Each repo is counted once, even if it shows up in more than one list.
+    repos = {}
+    for r in user["repositories"]["nodes"] + user["repositoriesContributedTo"]["nodes"]:
+        repos[r["nameWithOwner"]] = r["stargazerCount"]
+    for pr in user["pullRequests"]["nodes"]:
+        r = pr["repository"]
+        if not r["isPrivate"]:
+            repos[r["nameWithOwner"]] = r["stargazerCount"]
+
     return {
-        "stars": sum(r["stargazerCount"] for r in user["repositories"]["nodes"]),
+        "stars": sum(repos.values()),
         # includes private commits only if you turned on "private contributions" in your profile settings
         "commits": contrib["totalCommitContributions"] + contrib["restrictedContributionsCount"],
         "followers": user["followers"]["totalCount"],
@@ -47,7 +65,7 @@ def fetch_stats():
 
 def update_card(svg, stats):
     svg = re.sub(r'(class="mono stat">)[^<]*stars[^<]*(</text>)',
-                 rf'\g<1>{stats["stars"]} stars on my repos\g<2>', svg)
+                 rf'\g<1>{stats["stars"]} stars contributed to\g<2>', svg)
     svg = re.sub(r'(class="mono stat">)[^<]*commits[^<]*(</text>)',
                  rf'\g<1>{stats["commits"]} commits in last year\g<2>', svg)
     svg = re.sub(r'(class="mono stat">)[^<]*followers?[^<]*(</text>)',
