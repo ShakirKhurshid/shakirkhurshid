@@ -26,7 +26,7 @@
   <g transform="translate(40,250)">
     <path class="icon" d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7-6.3-3.6-6.3 3.6 1.5-7L2 9.3l7-.8z"/>
   </g>
-  <text x="80" y="270" class="mono stat">8 stars on my repos</text>
+  <text x="80" y="270" class="mono stat">9 stars contributed to</text>
 
   <g transform="translate(40,290)">
     <line class="icon" x1="0" y1="12" x2="7" y2="12"/>
