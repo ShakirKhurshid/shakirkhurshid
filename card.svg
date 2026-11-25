@@ -26,19 +26,19 @@
   <g transform="translate(40,250)">
     <path class="icon" d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7-6.3-3.6-6.3 3.6 1.5-7L2 9.3l7-.8z"/>
   </g>
-  <text x="80" y="270" class="mono stat">120 stars contributed to</text>
+  <text x="80" y="270" class="mono stat">8 stars on my repos</text>
 
   <g transform="translate(40,290)">
     <line class="icon" x1="0" y1="12" x2="7" y2="12"/>
     <circle class="icon" cx="13" cy="12" r="6"/>
     <line class="icon" x1="19" y1="12" x2="26" y2="12"/>
   </g>
-  <text x="80" y="310" class="mono stat">350 commits in last year</text>
+  <text x="80" y="310" class="mono stat">12 commits in last year</text>
 
   <g transform="translate(40,328)">
     <circle class="icon" cx="9" cy="7" r="4"/>
     <path class="icon" d="M2 20c0-4 3-6 7-6s7 2 7 6"/>
     <path class="icon" d="M17 3.5a4 4 0 0 1 0 7M20 14c2 1 3 3 3 6"/>
   </g>
-  <text x="80" y="347" class="mono stat">50 followers</text>
+  <text x="80" y="347" class="mono stat">2 followers</text>
 </svg>
